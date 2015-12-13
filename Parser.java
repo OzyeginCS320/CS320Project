@@ -28,12 +28,12 @@ public class parser2 {
 	    JsonParser jp = new JsonParser(); 
 	    JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); 
 	    JsonObject rootobj = root.getAsJsonObject(); //May be an array, may be an object. 
-	    String zipcode = rootobj.get("semester").getAsString(); 
-	    System.out.println(zipcode);
 	    
 	    Course course = new Course();
+	    course.setInstructor(rootobj.get("instructor").getAsString());
 	    course.setSemester(rootobj.get("semester").getAsString());
-	    System.out.println(course.semester);
+	    course.setCourseName(rootobj.get("courseName").getAsString());
+	    course.setCourseID(rootobj.get("courseID").getAsString());
 	    
 	    
 	}    
