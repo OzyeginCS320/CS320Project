@@ -1,21 +1,16 @@
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Wrapper;
-import java.util.ArrayList;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
-public class parser2 {
-	public static void main(String[] args) throws JsonIOException, JsonSyntaxException, IOException {
+public class Parser {
+	public static void main(String[] args) throws IOException {
 		
 		String sURL = "http://188.166.87.85/ehits.html"; 
 
@@ -24,17 +19,14 @@ public class parser2 {
 	    HttpURLConnection request = (HttpURLConnection) url.openConnection();
 	    request.connect();
 
-	    // Convert to a JSON object to print data
-	    JsonParser jp = new JsonParser(); 
-	    JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); 
-	    JsonObject rootobj = root.getAsJsonObject(); //May be an array, may be an object. 
-	    
-	    Course course = new Course();
-	    course.setInstructor(rootobj.get("instructor").getAsString());
-	    course.setSemester(rootobj.get("semester").getAsString());
-	    course.setCourseName(rootobj.get("courseName").getAsString());
-	    course.setCourseID(rootobj.get("courseID").getAsString());
-	    
-	    
-	}    
+		JSONObject EHITSdata = (JSONObject) JSONValue.parse(new InputStreamReader((InputStream) request.getContent()));
+		
+		 Course course = new Course();
+		 
+			course.setInstructor((String) EHITSdata.get("instructor"));
+			course.setSemester((String) EHITSdata.get("semester"));
+			course.setCourseName((String) EHITSdata.get("courseName"));
+			course.setCourseID((String) EHITSdata.get("courseID"));
+	
+	}
 }
