@@ -22,7 +22,9 @@ public class MainFrame extends JFrame {
 	private JTextField txtCanergulgecozuedutr;
 	private JTextField textField;
 
-	
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -37,6 +39,9 @@ public class MainFrame extends JFrame {
 		});
 	}
 
+	/**
+	 * Create the frame.
+	 */
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
@@ -77,19 +82,31 @@ public class MainFrame extends JFrame {
 		panel_1.add(textField);
 		textField.setColumns(10);
 		
+		JButton createAccountButton = new JButton("Create New Account");
+		createAccountButton.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 14));
+		createAccountButton.setBounds(140,140,140,23);
+		createAccountButton.setBorderPainted(false);
+		
 		JButton btnNewButton = new JButton("Login");
-	
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 14));
 		btnNewButton.setBounds(190, 140, 87, 23);
 		btnNewButton.setBorderPainted(false);
 		panel_1.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				HomePage home = new HomePage();
+				home.run();
+			}
+		});
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setBounds(0, 0, 1440, 900);
-		Image img = new ImageIcon(this.getClass().getResource("/resim2.png")).getImage();
+		Image img = new ImageIcon(this.getClass().getResource("/images/resim2.png")).getImage();
 		lblNewLabel_2.setIcon(new ImageIcon(img));
 		contentPane.add(lblNewLabel_2);
 			
 	}
 }
+

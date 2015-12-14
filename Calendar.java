@@ -31,7 +31,13 @@ public class Calendar {
         lblYear = new JLabel ("Change year:");  
         cmbYear = new JComboBox();
         btnHome = new JButton("Home");
-      
+        btnHome.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		frmMain.dispose();
+        		HomePage home = new HomePage();
+        		home.run();
+        	}
+        });
         btnHome.setBackground(new Color(245, 245, 245));
         btnHome.setFont(new Font("Sitka Text", Font.BOLD, 14));
         btnHome.setBorderPainted(false);
