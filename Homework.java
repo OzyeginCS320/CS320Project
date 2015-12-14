@@ -1,8 +1,10 @@
-
 public class Homework {
 	
 	private String givenDate;
 	private String deadline;
+	
+	public Homework() {
+	}
 	
 	public Homework(String givenDate, String deadline) {
 		this.givenDate = givenDate;
@@ -23,6 +25,11 @@ public class Homework {
 
 	public void setDeadline(String deadline) {
 		this.deadline = deadline;
+	}
+
+	@Override
+	public String toString() {
+		return "Homework [givenDate=" + givenDate + ", deadline=" + deadline + "]";
 	}
 	
 }

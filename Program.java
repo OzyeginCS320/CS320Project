@@ -1,15 +1,16 @@
 import java.util.*;
-
+import java.io.IOException;
 
 public class Program {
 
-	private static Parser parser = new Parser();
+	private static Parser parser;
 	
 	private User user;
 	private List<Course> offeredCourses;
 	private List<Course> selectedCourses;
 	
-	public Program(String userMail) {
+	public Program(String userMail) throws IOException {
+		parser = new Parser();
 		user = new User(userMail);
 		offeredCourses = parser.getOfferedCourses();
 	}
@@ -28,6 +29,13 @@ public class Program {
 
 	public List<Course> getSelectedCourses() {
 		return selectedCourses;
+	}
+	
+	public static void main(String[] args) throws IOException {
+		Program program = new Program("arjen.kilic@zu.edu.tr");
+		program.getUser().authenticate();
+		System.out.println(program.getUser().isAuth());
+		System.out.println(program.getOfferedCourses().get(0).getExams().get(0).getExamDate());
 	}
 
 }

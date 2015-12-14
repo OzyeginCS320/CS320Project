@@ -11,7 +11,8 @@ public class Course {
 	List<Homework> homeworks;
 	
 	public Course() {
-		
+		this.exams = new ArrayList<Exam>();
+		this.homeworks = new ArrayList<Homework>();
 	}
 	
 	public Course(String instructor, String semester, String courseName, String courseID) {
@@ -19,6 +20,8 @@ public class Course {
 		this.semester = semester;
 		this.courseName = courseName;
 		this.courseID = courseID;
+		this.exams = new ArrayList<Exam>();
+		this.homeworks = new ArrayList<Homework>();
 	}
 	
 	public void addHomework(Homework homework) {
@@ -75,6 +78,12 @@ public class Course {
 
 	public void setHomeworks(List<Homework> homeworks) {
 		this.homeworks = homeworks;
+	}
+
+	@Override
+	public String toString() {
+		return "Course [instructor=" + instructor + ", semester=" + semester + ", courseName=" + courseName
+				+ ", courseID=" + courseID + ", exams=" + exams + ", homeworks=" + homeworks + "]";
 	}
 	
 	
