@@ -16,16 +16,12 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.border.MatteBorder;
 
-public class HomePage extends MainFrame {
+public class HomePage extends MainFrame
+ {
     private static HomePage homeFrame;
 	private JPanel contentPane;
-  
-	/**
-	 * Launch the application.
-	 */
-	
-		
-			public void run() {
+  	
+		public void run() {
 				try {
 				    homeFrame = new HomePage();
 				    homeFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -33,11 +29,8 @@ public class HomePage extends MainFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
 			}
-	/**
-	 * Create the frame.
-	 */
+			
 	public HomePage() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1352, 1352);
@@ -61,7 +54,7 @@ public class HomePage extends MainFrame {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel.setBounds(0, 0, 138, 74);
-		Image img = new ImageIcon(this.getClass().getResource("/images/resim1.png")).getImage();
+		Image img = new ImageIcon(this.getClass().getResource("/resim1.png")).getImage();
 		lblNewLabel.setIcon(new ImageIcon(img));
 		panel_1.add(lblNewLabel);
 		
@@ -72,7 +65,7 @@ public class HomePage extends MainFrame {
 		
 		JLabel profileLabel = new JLabel("");
 		profileLabel.setBounds(973, 0, 84, 74);
-		Image img3 = new ImageIcon(this.getClass().getResource("/images/profile.png")).getImage();
+		Image img3 = new ImageIcon(this.getClass().getResource("/profile.png")).getImage();
 		profileLabel.setIcon(new ImageIcon(img3));
 		panel_1.add(profileLabel);
 		
@@ -84,14 +77,7 @@ public class HomePage extends MainFrame {
 		homeButton.setBorderPainted(false);
 		
 		JButton calendarButton = new JButton("Calendar");
-		calendarButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				homeFrame.dispose();
-				Calendar calendar = new Calendar();
-				calendar.main(null);
-				
-			}
-		});
+		
 		calendarButton.setBounds(404, 45, 107, 34);
 		panel_1.add(calendarButton);
 		calendarButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -104,15 +90,8 @@ public class HomePage extends MainFrame {
 		logoutButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		logoutButton.setBackground(Color.WHITE);
 		logoutButton.setBorderPainted(false);
-		logoutButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				homeFrame.dispose();
-				frame.setVisible(true);
-				
-			}
-		});
-		
-		
+	
+			
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 		panel_2.setBounds(334, 225, 548, 374);
@@ -124,7 +103,7 @@ public class HomePage extends MainFrame {
 		lblNewLabel_2.setBounds(31, 92, 125, 37);
 		panel_2.add(lblNewLabel_2);
 		
-		String[] faculties = { "FE-Engineering Faculty", "FEAS-Faculty of Management", "FLAW-Faculty of Law"};
+		String[] faculties = { "EF", "FEAS", "FLAW"};
 		JComboBox comboBoxFaculty = new JComboBox(faculties);
 		comboBoxFaculty.setBackground(Color.WHITE);
 		comboBoxFaculty.setBounds(166, 100, 197, 20);
@@ -135,7 +114,7 @@ public class HomePage extends MainFrame {
 		lblNewLabel_3.setBounds(31, 142, 125, 37);
 		panel_2.add(lblNewLabel_3);
 		
-		String[] subjects = {"CS Bilgisayar Mühendisliği", "MATH Matematik", "ENG İngilizce", "BUS İşletme "};
+		String[] subjects = {"CS", "MATH", "ENG", "HIST"};
 		JComboBox comboBoxSubject = new JComboBox(subjects);
 		comboBoxSubject.setBackground(Color.WHITE);
 		comboBoxSubject.setBounds(166, 150, 197, 20);
@@ -151,18 +130,10 @@ public class HomePage extends MainFrame {
 		searchButton.setBounds(354, 197, 97, 31);
 		panel_2.add(searchButton);
 		
-		searchButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				Lesson lesson = new Lesson();
-				lesson.run();
-			}
-		});
-		
 		
 		JLabel lblNewLabel_5 = new JLabel("New label");
 		lblNewLabel_5.setBounds(0, 0, 1326, 700);
-		Image img4 = new ImageIcon(this.getClass().getResource("/images/resim2.png")).getImage();
+		Image img4 = new ImageIcon(this.getClass().getResource("/resim2.png")).getImage();
 		lblNewLabel_5.setIcon(new ImageIcon(img4));
 		panel.add(lblNewLabel_5);
 	}
