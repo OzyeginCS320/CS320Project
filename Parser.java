@@ -16,14 +16,14 @@ import org.json.simple.JSONValue;
 public class Parser {
 
 	private static String URL = "http://188.166.87.85/ehits.html";
-	List<Course> coursesArr = new ArrayList<Course>();
+	List<Course> offeredCourses = new ArrayList<Course>();
 
 	public Parser() throws IOException {
 		parse();
 	}
 
 	public List<Course> getOfferedCourses() {
-		return coursesArr;
+		return offeredCourses;
 	}
 
 	private void parse() throws IOException {
@@ -39,6 +39,8 @@ public class Parser {
 		for (int i = 0; i < courses.size(); i++) {
 			JSONObject data = (JSONObject) courses.get(i);
 			Course newCourse = new Course();
+			newCourse.setFaculty((String) data.get("faculty"));
+			newCourse.setSubject((String) data.get("subject"));
 			newCourse.setInstructor((String) data.get("instructor"));
 			newCourse.setSemester((String) data.get("semester"));
 			newCourse.setCourseName((String) data.get("courseName"));
@@ -61,7 +63,7 @@ public class Parser {
 				homework.setDeadline(((String) homeworkJson.get("deadline")));
 				newCourse.addHomework(homework);
 			}
-			coursesArr.add(newCourse);
+			offeredCourses.add(newCourse);
 		}
 	}
 

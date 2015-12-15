@@ -35,7 +35,7 @@ public class Program {
 		Program program = new Program("arjen.kilic@zu.edu.tr");
 		program.getUser().authenticate();
 		System.out.println(program.getUser().isAuth());
-		System.out.println(program.getOfferedCourses().get(0).getExams().get(0).getExamDate());
+		System.out.println(program.getOfferedCourses().get(0).getFaculty());
 	}
 
 }

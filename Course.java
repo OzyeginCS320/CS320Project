@@ -3,6 +3,8 @@ import java.util.*;
 
 public class Course {
 	
+	String faculty;
+	String subject;
 	String instructor;
 	String semester;
 	String courseName;
@@ -15,7 +17,9 @@ public class Course {
 		this.homeworks = new ArrayList<Homework>();
 	}
 	
-	public Course(String instructor, String semester, String courseName, String courseID) {
+	public Course(String faculty, String subject, String instructor, String semester, String courseName, String courseID) {
+		this.faculty=faculty;
+		this.subject=subject;
 		this.instructor = instructor;
 		this.semester = semester;
 		this.courseName = courseName;
@@ -30,6 +34,22 @@ public class Course {
 	
 	public void addExam(Exam exam) {
 		exams.add(exam);
+	}
+
+	public String getFaculty() {
+		return faculty;
+	}
+
+	public void setFaculty(String faculty) {
+		this.faculty = faculty;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 	public String getInstructor() {
@@ -82,8 +102,9 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [instructor=" + instructor + ", semester=" + semester + ", courseName=" + courseName
-				+ ", courseID=" + courseID + ", exams=" + exams + ", homeworks=" + homeworks + "]";
+		return "Course [faculty=" + faculty + ", subject=" + subject + ", instructor=" + instructor + ", semester="
+				+ semester + ", courseName=" + courseName + ", courseID=" + courseID + ", exams=" + exams
+				+ ", homeworks=" + homeworks + "]";
 	}
 	
 	
