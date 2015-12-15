@@ -1,17 +1,21 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+
 import java.awt.Color;
+
 import javax.swing.JTextField;
+
 import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.MatteBorder;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -20,7 +24,7 @@ public class MainFrame extends JFrame {
     public static MainFrame frame;
 	private JPanel contentPane;
 	private JTextField txtCanergulgecozuedutr;
-	private JTextField textField;
+	private JPasswordField textField;
 
 	/**
 	 * Launch the application.
@@ -77,7 +81,7 @@ public class MainFrame extends JFrame {
 		lblNewLabel_1.setBounds(20, 71, 74, 25);
 		panel_1.add(lblNewLabel_1);
 		
-		textField = new JTextField();
+		textField = new JPasswordField();
 		textField.setBounds(104, 71, 158, 25);
 		panel_1.add(textField);
 		textField.setColumns(10);
