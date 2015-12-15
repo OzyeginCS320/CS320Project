@@ -4,9 +4,9 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -143,34 +143,56 @@ public class Calendar {
         numberOfDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
         startOfMonth = cal.get(GregorianCalendar.DAY_OF_WEEK);
         
-        
-        
-//        Lesson lesson = new Lesson();
-//		ArrayList<String> examDates = new ArrayList<String>();
-//		System.out.println(lesson.courseList.size());
-//		for(int i = 0; i< lesson.courseList.size(); i++) {
-//			for(int j = 0; j< lesson.courseList.get(i).exams.size();j++) {
-//				examDates.add(lesson.courseList.get(i).exams.get(j).getExamDate());
-//			}
-//		}
-//		String abc = examDates.get(0);
-//		System.out.println(abc);
-//		String[] splitted = abc.split(".",3);
-//		
-//		System.out.println(splitted[0]);
-//		System.out.println(splitted.length);
-		for (int i=1; i<= numberOfDays; i++){
+        for (int i=1; i<= numberOfDays; i++){
 		    int row = new Integer((i+startOfMonth-2)/7);                    
 		    int column  =  (i+startOfMonth-2)%7;
 		    mtblCalendar.setValueAt(i, row, column);
-//		    mtblCalendar.setValueAt("123", row, column);
-//		    if(Integer.valueOf(splitted[0]) == i)  mtblCalendar.setValueAt(i + " CS320\nEF150", row, column);
 		}
-        
-        
-       
-       
-          
+
+        Lesson lesson = new Lesson();
+        if(lesson.courseList != null) {
+        HashMap<String,String> examDates = new HashMap<String,String>();
+		for(int i = 0; i< lesson.courseList.size(); i++) {
+			for(int j = 0; j< lesson.courseList.get(i).exams.size();j++) {
+				examDates.put(lesson.courseList.get(i).courseName,lesson.courseList.get(i).exams.get(j).getExamDate());
+				for (int a = 0; a < examDates.size(); a++) {
+					for (int b = 0; b < examDates.size(); b++) {
+						String[] date = examDates.get(lesson.courseList.get(a).courseName).split("\\.");
+						if(year == Integer.valueOf(date[2]) && month == Integer.valueOf(date[1])-1) {
+							int row = new Integer((Integer.valueOf(date[0])+startOfMonth-2)/7);
+							int column = (Integer.valueOf(date[0])+startOfMonth-2)%7;
+							mtblCalendar.setValueAt(lesson.courseList.get(i).courseName + "-EXAM", row, column);
+						}
+					}
+					
+				}
+			}
+		}
+		
+		HashMap<String,String> homeworkDates = new HashMap<String,String>();
+		for(int i = 0; i< lesson.courseList.size(); i++) {
+			String courseName = lesson.courseList.get(i).courseName;
+			for(int j = 0; j< lesson.courseList.get(i).homeworks.size();j++) {
+				homeworkDates.put(lesson.courseList.get(i).courseName,lesson.courseList.get(i).homeworks.get(j).getDeadline());
+				for (int a = 0; a < homeworkDates.size(); a++) {
+					for (int b = 0; b < homeworkDates.size(); b++) {
+						String[] date = homeworkDates.get(lesson.courseList.get(a).courseName).split("\\.");
+						if(year == Integer.valueOf(date[2]) && month == (Integer.parseInt(date[1])-1)) {
+							int row = new Integer((Integer.valueOf(date[0])+startOfMonth-2)/7);
+							int column = (Integer.valueOf(date[0])+startOfMonth-2)%7;
+							mtblCalendar.setValueAt(courseName+"-HOMEWORK", row, column);
+						}
+					}
+					
+				}
+			}
+		}
+        }
+		
+		
+		
+		
+		
         tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
     }
     
