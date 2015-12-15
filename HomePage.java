@@ -140,8 +140,8 @@ public class HomePage extends MainFrame {
 		lblNewLabel_2.setBounds(31, 92, 125, 37);
 		panel_2.add(lblNewLabel_2);
 		
-		final String[] faculties = { "FE-Engineering Faculty", "FEAS-Faculty of Management", "FLAW-Faculty of Law"};
-		JComboBox comboBoxFaculty = new JComboBox(faculties);
+		String[] faculties = { "EF", "FEAS", "FLAW"};
+		final JComboBox comboBoxFaculty = new JComboBox(faculties);
 		comboBoxFaculty.setBackground(Color.WHITE);
 		comboBoxFaculty.setBounds(166, 100, 197, 20);
 		panel_2.add(comboBoxFaculty);
@@ -151,8 +151,8 @@ public class HomePage extends MainFrame {
 		lblNewLabel_3.setBounds(31, 142, 125, 37);
 		panel_2.add(lblNewLabel_3);
 		
-		final String[] subjects = {"CS Bilgisayar Mühendisliği", "MATH Matematik", "ENG İngilizce", "BUS İşletme "};
-		JComboBox comboBoxSubject = new JComboBox(subjects);
+		String[] subjects = {"CS", "MATH", "ENG", "HIST"};
+		final JComboBox comboBoxSubject = new JComboBox(subjects);
 		comboBoxSubject.setBackground(Color.WHITE);
 		comboBoxSubject.setBounds(166, 150, 197, 20);
 		panel_2.add(comboBoxSubject);
@@ -172,7 +172,7 @@ public class HomePage extends MainFrame {
 				frame.dispose();
 				Lesson lesson;
 				try {
-					lesson = new Lesson(faculties,subjects);
+					lesson = new Lesson(comboBoxFaculty.getSelectedItem().toString(),comboBoxSubject.getSelectedItem().toString());
 					lesson.run();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block

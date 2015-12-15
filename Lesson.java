@@ -23,13 +23,13 @@ public class Lesson extends MainFrame {
 	private JPanel contentPanel;
 	public final DefaultListModel defaultList = new DefaultListModel();
 	public static ArrayList<Course> courseList;
-	public static String[] faculties;
-	public static String[] subjects;
+	public static String faculty;
+	public static String subject;
 	
 
 	public void run() {
 		try {
-			lessonPage = new Lesson(faculties,subjects);
+			lessonPage = new Lesson(faculty,subject);
 			lessonPage.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 			lessonPage.setVisible(true);
 		} catch (Exception e) {
@@ -41,21 +41,19 @@ public class Lesson extends MainFrame {
 		
 	}
 
-	public Lesson(String[] faculties, String[] subjects) throws IOException {
-		this.faculties = faculties;
-		this.subjects = subjects;
+	public Lesson(String faculty, String subject) throws IOException {
+		this.faculty = faculty;
+		this.subject = subject;
 		
 		Parser parser = new Parser();
-		List<Course> lists = parser.coursesArr;
+		List<Course> lists = parser.offeredCourses;
 		List<Course> courseListForShown = new ArrayList<Course>();
 		
-//		for(int i = 0; i<lists.size(); i++) {
-//			for(int j = 0; j < faculties.length; j++) {
-//				if(faculties[j].equals(lists.get(i)) && !courseListForShown.contains(lists.get(i))) {
-//					courseListForShown.add(lists.get(i));
-//				}
-//			}
-//		}
+		for(int i = 0; i<lists.size(); i++) {
+			if(faculty.equals(lists.get(i).faculty) && subject.equals(lists.get(i).subject)) {
+				courseListForShown.add(lists.get(i));
+			}
+		}
 		
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -76,14 +74,14 @@ public class Lesson extends MainFrame {
 		contentPanel.add(mainPanel);
 		mainPanel.setLayout(null);
 		
-		final JList list = new JList(getCourses(lists));
+		final JList list = new JList(getCourses(courseListForShown));
 		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(400, 200, 150, 300);
 		scrollPane.setVisible(true);
 		mainPanel.add(scrollPane);
 
-		JButton copyButton = new JButton("Copy>>>");
+		JButton copyButton = new JButton("Add>>>");
 		copyButton.setBounds(600, 250, 100, 50);
 		mainPanel.add(copyButton);
 		
@@ -205,10 +203,10 @@ public class Lesson extends MainFrame {
 	private ArrayList<Course> getCourseDetail(DefaultListModel<String> list) throws IOException {
 		Parser parser = new Parser();
 		ArrayList<Course> detailList = new ArrayList<Course>();
-		for(int i = 0;i<list.size();i++) {
-//			if(list.contains(parser.coursesArr.get(i).courseName)) {
-				detailList.add(parser.coursesArr.get(i));			
-//			}
+		for(int i = 0;i<parser.offeredCourses.size();i++) {
+				if(list.contains(parser.offeredCourses.get(i).courseName)) {
+					detailList.add(parser.offeredCourses.get(i));			
+				}	
 		}
 		return detailList;	
 	}
