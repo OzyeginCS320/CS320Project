@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -16,12 +17,16 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.border.MatteBorder;
 
-public class HomePage extends MainFrame
- {
+public class HomePage extends MainFrame {
     private static HomePage homeFrame;
 	private JPanel contentPane;
-  	
-		public void run() {
+  
+	/**
+	 * Launch the application.
+	 */
+	
+		
+			public void run() {
 				try {
 				    homeFrame = new HomePage();
 				    homeFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -29,8 +34,11 @@ public class HomePage extends MainFrame
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
 			}
-			
+	/**
+	 * Create the frame.
+	 */
 	public HomePage() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1352, 1352);
@@ -54,7 +62,7 @@ public class HomePage extends MainFrame
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel.setBounds(0, 0, 138, 74);
-		Image img = new ImageIcon(this.getClass().getResource("/resim1.png")).getImage();
+		Image img = new ImageIcon(this.getClass().getResource("/images/resim1.png")).getImage();
 		lblNewLabel.setIcon(new ImageIcon(img));
 		panel_1.add(lblNewLabel);
 		
@@ -65,7 +73,7 @@ public class HomePage extends MainFrame
 		
 		JLabel profileLabel = new JLabel("");
 		profileLabel.setBounds(973, 0, 84, 74);
-		Image img3 = new ImageIcon(this.getClass().getResource("/profile.png")).getImage();
+		Image img3 = new ImageIcon(this.getClass().getResource("/images/profile.png")).getImage();
 		profileLabel.setIcon(new ImageIcon(img3));
 		panel_1.add(profileLabel);
 		
@@ -77,21 +85,50 @@ public class HomePage extends MainFrame
 		homeButton.setBorderPainted(false);
 		
 		JButton calendarButton = new JButton("Calendar");
-		
 		calendarButton.setBounds(404, 45, 107, 34);
 		panel_1.add(calendarButton);
 		calendarButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		calendarButton.setBackground(Color.WHITE);
 		calendarButton.setBorderPainted(false);
+		calendarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				homeFrame.dispose();
+				Calendar calendar = new Calendar();
+				calendar.main(null);
+				
+			}
+		});
+
+		JButton detailButton = new JButton("Detail");
+		detailButton.setBounds(510,45, 107, 34);
+		panel_1.add(detailButton);
+		detailButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		detailButton.setBackground(Color.WHITE);
+		detailButton.setBorderPainted(false);
+		detailButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				homeFrame.dispose();
+				Detail detail = new Detail();
+				detail.run();
+				
+			}
+		});
 		
 		JButton logoutButton = new JButton("Logout");
-		logoutButton.setBounds(510, 45, 107, 34);
+		logoutButton.setBounds(616, 45, 107, 34);
 		panel_1.add(logoutButton);
 		logoutButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		logoutButton.setBackground(Color.WHITE);
 		logoutButton.setBorderPainted(false);
-	
-			
+		logoutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				homeFrame.dispose();
+				frame.setVisible(true);
+				
+			}
+		});
+		
+		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new MatteBorder(2, 2, 2, 2, (Color) new Color(0, 0, 0)));
 		panel_2.setBounds(334, 225, 548, 374);
@@ -103,7 +140,7 @@ public class HomePage extends MainFrame
 		lblNewLabel_2.setBounds(31, 92, 125, 37);
 		panel_2.add(lblNewLabel_2);
 		
-		String[] faculties = { "EF", "FEAS", "FLAW"};
+		final String[] faculties = { "FE-Engineering Faculty", "FEAS-Faculty of Management", "FLAW-Faculty of Law"};
 		JComboBox comboBoxFaculty = new JComboBox(faculties);
 		comboBoxFaculty.setBackground(Color.WHITE);
 		comboBoxFaculty.setBounds(166, 100, 197, 20);
@@ -114,7 +151,7 @@ public class HomePage extends MainFrame
 		lblNewLabel_3.setBounds(31, 142, 125, 37);
 		panel_2.add(lblNewLabel_3);
 		
-		String[] subjects = {"CS", "MATH", "ENG", "HIST"};
+		final String[] subjects = {"CS Bilgisayar Mühendisliği", "MATH Matematik", "ENG İngilizce", "BUS İşletme "};
 		JComboBox comboBoxSubject = new JComboBox(subjects);
 		comboBoxSubject.setBackground(Color.WHITE);
 		comboBoxSubject.setBounds(166, 150, 197, 20);
@@ -130,10 +167,25 @@ public class HomePage extends MainFrame
 		searchButton.setBounds(354, 197, 97, 31);
 		panel_2.add(searchButton);
 		
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				Lesson lesson;
+				try {
+					lesson = new Lesson(faculties,subjects);
+					lesson.run();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		
 		
 		JLabel lblNewLabel_5 = new JLabel("New label");
 		lblNewLabel_5.setBounds(0, 0, 1326, 700);
-		Image img4 = new ImageIcon(this.getClass().getResource("/resim2.png")).getImage();
+		Image img4 = new ImageIcon(this.getClass().getResource("/images/resim2.png")).getImage();
 		lblNewLabel_5.setIcon(new ImageIcon(img4));
 		panel.add(lblNewLabel_5);
 	}

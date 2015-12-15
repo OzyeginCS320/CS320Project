@@ -1,8 +1,23 @@
-import javax.swing.*;
-import javax.swing.table.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class Calendar {
 	public Calendar() {
@@ -127,12 +142,35 @@ public class Calendar {
         GregorianCalendar cal = new GregorianCalendar(year, month, 1);
         numberOfDays = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
         startOfMonth = cal.get(GregorianCalendar.DAY_OF_WEEK);
+        
+        
+        
+//        Lesson lesson = new Lesson();
+//		ArrayList<String> examDates = new ArrayList<String>();
+//		System.out.println(lesson.courseList.size());
+//		for(int i = 0; i< lesson.courseList.size(); i++) {
+//			for(int j = 0; j< lesson.courseList.get(i).exams.size();j++) {
+//				examDates.add(lesson.courseList.get(i).exams.get(j).getExamDate());
+//			}
+//		}
+//		String abc = examDates.get(0);
+//		System.out.println(abc);
+//		String[] splitted = abc.split(".",3);
+//		
+//		System.out.println(splitted[0]);
+//		System.out.println(splitted.length);
+		for (int i=1; i<= numberOfDays; i++){
+		    int row = new Integer((i+startOfMonth-2)/7);                    
+		    int column  =  (i+startOfMonth-2)%7;
+		    mtblCalendar.setValueAt(i, row, column);
+//		    mtblCalendar.setValueAt("123", row, column);
+//		    if(Integer.valueOf(splitted[0]) == i)  mtblCalendar.setValueAt(i + " CS320\nEF150", row, column);
+		}
+        
+        
        
-          for (int i=1; i<= numberOfDays; i++){
-            int row = new Integer((i+startOfMonth-2)/7);                    
-            int column  =  (i+startOfMonth-2)%7;
-            mtblCalendar.setValueAt(i, row, column);
-        }
+       
+          
         tblCalendar.setDefaultRenderer(tblCalendar.getColumnClass(0), new tblCalendarRenderer());
     }
     
@@ -146,9 +184,9 @@ public class Calendar {
                 setBackground(new Color(255, 255, 255));
             }
             if (value != null){
-                if (Integer.parseInt(value.toString()) == realDay && currentMonth == realMonth && currentYear == realYear){
-                    setBackground(new Color(220, 220, 255));
-                }
+//                if (Integer.parseInt(value.toString()) == realDay && currentMonth == realMonth && currentYear == realYear){
+//                    setBackground(new Color(220, 220, 255));
+//                }
             }
             return this;
         }

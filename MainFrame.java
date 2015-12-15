@@ -82,11 +82,6 @@ public class MainFrame extends JFrame {
 		panel_1.add(textField);
 		textField.setColumns(10);
 		
-		JButton createAccountButton = new JButton("Create New Account");
-		createAccountButton.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 14));
-		createAccountButton.setBounds(140,140,140,23);
-		createAccountButton.setBorderPainted(false);
-		
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 14));

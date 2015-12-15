@@ -3,6 +3,9 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -18,18 +21,43 @@ import javax.swing.border.EmptyBorder;
 public class Lesson extends MainFrame {
 	private static Lesson lessonPage;
 	private JPanel contentPanel;
+	public final DefaultListModel defaultList = new DefaultListModel();
+	public static ArrayList<Course> courseList;
+	public static String[] faculties;
+	public static String[] subjects;
+	
 
 	public void run() {
 		try {
-			lessonPage = new Lesson();
+			lessonPage = new Lesson(faculties,subjects);
 			lessonPage.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 			lessonPage.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public Lesson() {
+		
+	}
+
+	public Lesson(String[] faculties, String[] subjects) throws IOException {
+		this.faculties = faculties;
+		this.subjects = subjects;
+		
+		Parser parser = new Parser();
+		List<Course> lists = parser.coursesArr;
+		List<Course> courseListForShown = new ArrayList<Course>();
+		
+//		for(int i = 0; i<lists.size(); i++) {
+//			for(int j = 0; j < faculties.length; j++) {
+//				if(faculties[j].equals(lists.get(i)) && !courseListForShown.contains(lists.get(i))) {
+//					courseListForShown.add(lists.get(i));
+//				}
+//			}
+//		}
+		
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setBounds(100, 100, 1352, 1352);
 		contentPanel = new JPanel();
@@ -47,9 +75,8 @@ public class Lesson extends MainFrame {
 		mainPanel.setBounds(0,0,1352,1352);
 		contentPanel.add(mainPanel);
 		mainPanel.setLayout(null);
-
-		String[] faculties = { "FE-Engineering Faculty", "FEAS-Faculty of Management", "FLAW-Faculty of Law","FE-Engineering Faculty", "FEAS-Faculty of Management", "FLAW-Faculty of Law","FE-Engineering Faculty", "FEAS-Faculty of Management", "FLAW-Faculty of Law","FE-Engineering Faculty", "FEAS-Faculty of Management", "FLAW-Faculty of Law","FE-Engineering Faculty", "FEAS-Faculty of Management", "FLAW-Faculty of Law","FE-Engineering Faculty", "FEAS-Faculty of Management", "FLAW-Faculty of Law","FE-Engineering Faculty", "FEAS-Faculty of Management", "FLAW-Faculty of Law","FE-Engineering Faculty", "FEAS-Faculty of Management", "FLAW-Faculty of Law","FE-Engineering Faculty", "FEAS-Faculty of Management", "FLAW-Faculty of Law"};
-		final JList list = new JList(faculties);
+		
+		final JList list = new JList(getCourses(lists));
 		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setBounds(400, 200, 150, 300);
@@ -59,7 +86,7 @@ public class Lesson extends MainFrame {
 		JButton copyButton = new JButton("Copy>>>");
 		copyButton.setBounds(600, 250, 100, 50);
 		mainPanel.add(copyButton);
-		final DefaultListModel defaultList = new DefaultListModel();
+		
 		copyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int size = list.getSelectedValues().length;
@@ -112,12 +139,22 @@ public class Lesson extends MainFrame {
 		mainPanel.add(doneButton);
 		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					
+					for(int i = 0; i < defaultList.size(); i++) {
+						System.out.println(defaultList.getElementAt(i));
+					}
+					courseList = getCourseDetail(defaultList);
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				lessonPage.dispose();
 				HomePage home = new HomePage();
 				home.run();
 			}
 		});
-
 
 		JLabel labelForImage = new JLabel("");
 		labelForImage.setBounds(0,0,1352,700);
@@ -155,5 +192,24 @@ public class Lesson extends MainFrame {
 				frame.setVisible(true);
 			}
 		});	 
+	}
+	
+	private DefaultListModel<String> getCourses(List<Course> lists) {
+		DefaultListModel<String> courseList = new DefaultListModel<String>();
+		for(int i = 0;i<lists.size(); i++) {
+			courseList.addElement(lists.get(i).courseName);
+		}
+		return courseList;
+	}
+	
+	private ArrayList<Course> getCourseDetail(DefaultListModel<String> list) throws IOException {
+		Parser parser = new Parser();
+		ArrayList<Course> detailList = new ArrayList<Course>();
+		for(int i = 0;i<list.size();i++) {
+//			if(list.contains(parser.coursesArr.get(i).courseName)) {
+				detailList.add(parser.coursesArr.get(i));			
+//			}
+		}
+		return detailList;	
 	}
 }
